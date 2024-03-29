@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profie Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/feed.css">
+  </head>
+  <body>
+    <div class="header">
+      <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/pinterest-round-color-icon.png" class="icon pinterest-icon">
+      <ul class="navigation">
+        <a href="/feed"><li>Home</li></a>
+        <li>Explore</li>
+        <li>Create</li>
+      </ul>
+      <!-- <div class="search-bar">
+        <img src="https://www.brilliantlightingcenter.com/data/images/icons/search.svg" class="search-icon">
+       <form method="post" action="/search"> <input type="text"  placeholder="Search"   name="value">
+         -->
+      </div>
+      <div class="nav-icons">
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/bell-icon.png" class="icon nav-icon">
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/speech-bubble-black-icon.png" class="icon nav-icon">
+       <a href="/profile"> <img src="https://uxwing.com/wp-content/themes/uxwing/download/arrow-direction/angle-bottom-icon.png" class="icon nav-icon arrow-icon"> </a>
+      </div>
+    </div>
+    <div class="containerpers">
+        <div class="cardpers">
+          <div class="profile-picture">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-95d20216c26420cbb1035c4ac625bc3b" alt="Profile Picture">
+          </div>
+          <h2 class="name"><%= user.fullname %></h2>
+          <h3 class="username">@<%=user.username %></h3>
+          <p class="tagline">some tags</p>
+          <p class="description">tag line</p>
+          <a href="/logout" class="button">Logout</a>
+          <a href="/feed" class="button">Go To Feed</a>
+          <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="text" name="filecaption" placeholder="some caption">
+            <input type="file" name="file"> 
+            <input type= "submit">
+          </form>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="cards flex">
+        <% user.posts.forEach(function(post){ %>
+          <div class="card" style="width: 18rem;">
+            <img src= "/images/uploads/<%= post.image %>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.imageText %></h5>
+              <h5 class="card-title"> <%=post.currentDateAndTime.toDateString() %></h5>
+              <h5 class="card-title"> <%=post.currentDateAndTime.toLocaleTimeString() %></h5>
+            </div>
+            <form method="get" action=<%=`/delete/${post.id}`%>><button type="submit">Delete Post</button></form>
+        </div>
+        <% }) %>
+      </div>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

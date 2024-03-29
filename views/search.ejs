@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/feed.css">
+    <style>
+        .cards{
+           width: 1400px;
+          columns: 4;
+          column-gap: 20px;
+          margin: 20px auto; 
+        }
+        .card {
+  width: 100%;
+  margin-bottom: 10px;
+  break-inside: avoid;
+        } 
+  .card .img{
+    max-width: 100%;
+    border-radius: 15px !important; 
+  
+  } 
+  @media (max-width:1200px) {
+    .cards{
+      width: calc(100%-40px);
+      columns: 3;
+    }
+  }
+  
+  @media (max-width:768px) {
+    .cards{
+     columns: 2;
+    }
+  }
+  @media (max-width:480px) {
+    .cards{
+    
+      columns: 1;
+    }
+  }
+      </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/pinterest-round-color-icon.png" class="icon pinterest-icon">
+        <ul class="navigation">
+          <a href="/feed"><li>Home</li></a>
+          <li>Explore</li>
+          <li>Create</li>
+        </ul>
+        <div class="search-bar">
+          <img src="https://www.brilliantlightingcenter.com/data/images/icons/search.svg" class="search-icon">
+         <form method="post" action="/search"> <input type="text"  placeholder="Search"   name="value" value="<%= data %>">
+           <!-- <input  type="submit"> </form> -->
+        </div>
+        <div class="nav-icons">
+          <img src="https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/bell-icon.png" class="icon nav-icon">
+          <img src="https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/speech-bubble-black-icon.png" class="icon nav-icon">
+          <a href="/profile"> <img src="https://uxwing.com/wp-content/themes/uxwing/download/arrow-direction/angle-bottom-icon.png" class="icon nav-icon arrow-icon"></a>
+        </div>
+      </div>
+    <div style="display: flex;">  <div class="container">
+        <h1 style="padding: 20px 40px;">POSTS</h1>
+        <% if(posts.length >0) {%>
+        <div id="main"  class="cards">
+          <% posts.forEach(function(post){ %>
+            <div  onmousemove="myEnterFunction()"  onmouseleave="myLeaveFunction()" class="card" style="position: relative; border-radius: 15px; display: grid;">
+            <img src= "/images/uploads/<%= post.image %>" class="card-img-top" style="border-radius: 15px;" alt="...">
+            <div id="body" class="card-body" style="transition: 0.2s ; opacity: 0; height: 100%; text-align: center; width: 100%;background: rgb(2,0,36);
+            background: linear-gradient(0deg, rgba(2,0,36,0.8474184351474965) 13%, rgba(7,7,12,0.16674616623993344) 100%, rgba(0,212,255,1) 100%); position: absolute; border-radius: 15px;" >
+               <a href= <%=`/profile/${post.user.id}`%>><h6 id="username" style="position: absolute; top: 10px; font-weight: 600; background-color: aliceblue; padding: 5px 10px; border-radius: 10px; cursor: pointer;"><%= post.user.username %></h6> </a>
+              <h5 class="card-title" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); color: azure;" ><%= post.imageText %></h5>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <%}else {%>
+        <h5>NO POSTS</h5>
+      <%}%>
+      </div>
+    
+    <div class="users">
+        <h1 style="padding: 20px 40px;">USERS</h1>
+        <% if(users.length >0) {%>
+        <% users.forEach(function(user){ %>
+            <div  style="padding: 25px 40px; border: 1px solid black;"> 
+                <%= user.username%>
+            </div>
+            <% }) %>
+            <%}else {%>
+                <h5>NO Users</h5>
+              <%}%>
+    </div>
+    </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      <script>
+    
+      const card= document.querySelectorAll(".card-body")
+     
+    card.forEach(elem => { elem.addEventListener('mouseover',e =>  e.target.style.opacity = "1"
+    );
+      elem.addEventListener('mouseout',e =>  e.target.style.opacity = 0)
+    })
+    
+    
+    
+      </script>
+</body>
+</html>
